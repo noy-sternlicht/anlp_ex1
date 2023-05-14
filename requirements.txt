@@ -1,0 +1,5 @@
+wandb~=0.15.2
+numpy~=1.23.3
+datasets~=2.12.0
+transformers~=4.25.1
+evaluate~=0.4.0
