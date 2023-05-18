@@ -3,3 +3,5 @@ res.txt
 results/
 wandb/
 .idea/
+run.sh
+build_env.sh

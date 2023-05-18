@@ -1,13 +1,16 @@
 import argparse
 import os
 
+os.environ['TRANSFORMERS_CACHE'] = '/sci/nosnap/tomhope/noystl/anlp_ex1/.trans_cache'
+os.environ['HF_DATASETS_CACHE'] = '/sci/nosnap/tomhope/noystl/anlp_ex1/.datasets_cache'
+os.environ['HF_HOME'] = '/sci/nosnap/tomhope/noystl/anlp_ex1/.hf_home'
+
 import wandb
 import numpy as np
 from datasets import load_dataset
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments, \
     EvalPrediction, DataCollatorWithPadding
 from evaluate import load
-
 
 def parse_args():
     # Define and parse command-line arguments
@@ -68,7 +71,7 @@ def get_compute_metrics():
 
 def fine_tune(dataset, model_name: str, args):
     config = AutoConfig.from_pretrained(model_name)
-    model = AutoModelForSequenceClassification.from_pretrained(model_name, config=config)
+    model = AutoModelForSequenceClassification.from_pretrained(model_name, config=config).cuda()
     tokenizer = AutoTokenizer.from_pretrained(model_name, truncation=True)
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
@@ -126,9 +129,8 @@ def predict(trainer, test_split):
                                       overwrite_output_dir=True, per_device_eval_batch_size=1)
 
     trainer.args = training_args
-    predictions = trainer.predict(test_split)
     trainer.model.eval()
-    # TODO: check that I indeed don't pad the data here
+    predictions = trainer.predict(test_split)
     trainer.data_collator = None  # avoid padding for predictions
     preds = predictions.predictions
     preds = np.argmax(preds, axis=1)
