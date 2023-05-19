@@ -1,9 +1,9 @@
 import argparse
 import os
 
-os.environ['TRANSFORMERS_CACHE'] = '/sci/nosnap/tomhope/noystl/anlp_ex1/.trans_cache'
-os.environ['HF_DATASETS_CACHE'] = '/sci/nosnap/tomhope/noystl/anlp_ex1/.datasets_cache'
-os.environ['HF_HOME'] = '/sci/nosnap/tomhope/noystl/anlp_ex1/.hf_home'
+os.environ['TRANSFORMERS_CACHE'] = '.trans_cache'
+os.environ['HF_DATASETS_CACHE'] = '.datasets_cache'
+os.environ['HF_HOME'] = '.hf_home'
 
 import wandb
 import numpy as np
