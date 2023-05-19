@@ -8,17 +8,24 @@ the SST2 dataset.
 1. Clone the repository:
 
    ``` git clone https://github.com/noy-sternlicht/anlp_ex1.git ```
-2. Create a virtual environment:
+   
+2. Enter the repository:
 
-   ``` python3 -m venv venv ```
-3. Activate the virtual environment:
+   ```cd anlp_ex1```
 
-   ``` source venv/bin/activate ```
-4. Install requirements:
+3. Create a virtual environment:
+
+   ``` python3 -m venv myenv ```
+4. Activate the virtual environment:
+
+   ``` source myenv/bin/activate ```
+5. Install requirements:
 
    ``` pip install -r requirements.txt ```
 
-Alternatively, on cluster, you can run the build_venv.sh script, which will do all of the above:
+Alternatively, on cluster, you can run the build_venv.sh script, which will do 3..5 for you:
+
+```chmod +x ./build_env.sh```
 
 ```sbatch ./build_env.sh ```
 
@@ -29,6 +36,8 @@ Run:
 ``` python ex1.py <number of seeds>  <number of training samples> <number of validation samples> <number of prediction samples> ```
 
 Alternatively, on cluster, you can run:
+
+```chmod +x ./run.sh```
 
 ```sbatch ./run.sh ```
 

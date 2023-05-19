@@ -3,15 +3,14 @@
 #SBATCH -c10
 #SBATCH --mem=50g
 
-PWD=`pwd`
-echo $PWD
-activate () {
-    . $PWD/myenv/bin/activate
+PWD=$(pwd)
+activate() {
+  . $PWD/myenv/bin/activate
 }
 
-virtualenv myenv
+# Create a virtual environment:
+python3 -m venv myenv
 activate
-set_env_vars
 
 # Install packages:
 curl -sS https://bootstrap.pypa.io/get-pip.py | python3
