@@ -158,10 +158,13 @@ def main():
             best_trainer = trainer
             best_test_split = test_split
 
+    total_training_time = 0
+    for time in all_train_times:
+        total_training_time += time
+
     with open('res.txt', 'a') as f:
         f.write('----\n')
-        for time in all_train_times:
-            f.write(f'train time, {time}\n')
+        f.write(f'train time, {total_training_time}\n')
 
     pred_time = predict(best_trainer, best_test_split)
 
