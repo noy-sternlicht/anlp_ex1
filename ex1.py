@@ -11,30 +11,24 @@ from datasets import load_dataset
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments, \
     EvalPrediction, DataCollatorWithPadding
 from evaluate import load
+import sys
+
 
 def parse_args():
-    # Define and parse command-line arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--nr_seeds", type=int, help="Number of seeds to be used for each model.", default=3)
-    parser.add_argument("--nr_train_samples", type=int,
-                        help="Number of samples to be used during training or -1 if all training samples should be used.",
-                        default=-1)
-    parser.add_argument("--nr_val_samples", type=int,
-                        help="Number of samples to be used during validation or -1 if all validation samples should be used.",
-                        default=-1)
-    parser.add_argument("--nr_test_samples", type=int,
-                        help="Number of samples for which the model will predict a sentiment or -1 if a sentiment should be predicted for all test samples.",
-                        default=-1)
-    args = parser.parse_args()
+    args = sys.argv[1:]
+    nr_seeds = int(args[0])
+    nr_train_samples = int(args[1])
+    nr_val_samples = int(args[2])
+    nr_test_samples = int(args[3])
 
-    # Print out the command-line arguments
     print("Command-line arguments:")
-    print(f"Number of seeds: {args.nr_seeds}")
-    print(f"Number of training samples: {args.nr_train_samples}")
-    print(f"Number of validation samples: {args.nr_val_samples}")
-    print(f"Number of test samples: {args.nr_test_samples}")
+    print(f"Number of seeds: {nr_seeds}")
+    print(f"Number of training samples: {nr_train_samples}")
+    print(f"Number of validation samples: {nr_val_samples}")
+    print(f"Number of test samples: {nr_test_samples}")
 
-    return args
+    return argparse.Namespace(nr_seeds=nr_seeds, nr_train_samples=nr_train_samples, nr_val_samples=nr_val_samples,
+                              nr_test_samples=nr_test_samples)
 
 
 def get_processed_splits(dataset, tokenizer, nr_train_samples, nr_val_samples, nr_test_samples):
