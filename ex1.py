@@ -124,8 +124,8 @@ def predict(trainer, test_split):
 
     trainer.args = training_args
     trainer.model.eval()
-    predictions = trainer.predict(test_split)
     trainer.data_collator = None  # avoid padding for predictions
+    predictions = trainer.predict(test_split)
     preds = predictions.predictions
     preds = np.argmax(preds, axis=1)
 
