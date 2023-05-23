@@ -5,7 +5,7 @@ os.environ['TRANSFORMERS_CACHE'] = '.trans_cache'
 os.environ['HF_DATASETS_CACHE'] = '.datasets_cache'
 os.environ['HF_HOME'] = '.hf_home'
 
-import wandb
+# import wandb
 import numpy as np
 from datasets import load_dataset
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments, \
@@ -79,13 +79,13 @@ def fine_tune(dataset, model_name: str, args):
     for i in range(args.nr_seeds):
         print(f"Fine-tuning {model_name} with seed {i}...")
 
-        wandb.init(
-            project="anlp_ex1",
-            config={
-                "dataset": "SST2",
-            },
-            name=f"{model_name}_seed_{i}"
-        )
+        # wandb.init(
+        #     project="anlp_ex1",
+        #     config={
+        #         "dataset": "SST2",
+        #     },
+        #     name=f"{model_name}_seed_{i}"
+        # )
 
         training_args = TrainingArguments(seed=i, output_dir=f"results/{model_name}/seed_{i}",
                                           overwrite_output_dir=True)
@@ -102,8 +102,8 @@ def fine_tune(dataset, model_name: str, args):
 
         model.eval()
         metrics = trainer.evaluate(eval_dataset=val_dataset)
-        wandb.log(metrics)
-        wandb.finish()
+        # wandb.log(metrics)
+        # wandb.finish()
         acc = metrics['eval_accuracy']
         accuracies.append(acc)
 
